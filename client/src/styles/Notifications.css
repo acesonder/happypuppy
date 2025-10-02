@@ -1,0 +1,124 @@
+.notification-bell {
+  position: relative;
+}
+
+.bell-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.bell-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.bell-button .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff4444;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.mark-all-read {
+  background: none;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.mark-all-read:hover {
+  text-decoration: underline;
+}
+
+.notifications-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.no-notifications {
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+}
+
+.notification-item {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.notification-item:hover {
+  background: #f9f9f9;
+}
+
+.notification-item.unread {
+  background: #f0f4ff;
+}
+
+.notification-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-content h5 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.notification-content p {
+  margin: 0 0 5px 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.notification-time {
+  font-size: 11px;
+  color: #999;
+}
