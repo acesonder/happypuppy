@@ -1,229 +1,249 @@
 # HappyPuppy - Harm Reduction Ordering System
 
-A comprehensive harm reduction ordering system with real-time messaging, AI safety check-ins, and inventory management.
+A comprehensive harm reduction ordering system with messaging, notifications, and inventory management built with PHP, MySQL, HTML, CSS, and Bootstrap.
 
 ## Features
 
-- **User Authentication**: Secure login and registration system
-- **Product Ordering**: Browse products with two layout views (grid/list)
-- **Inventory Management**: Real-time inventory tracking and control
-- **Scheduled Delivery**: Pickup/delivery only on Wednesdays and Fridays, 5pm-9pm
-- **Order Confirmation**: Complete order tracking and status updates
-- **Instant Messaging**: Real-time communication with support team via Socket.IO
-- **In-App Notifications**: Bell notification system with unread counts
-- **Message Bubble Modals**: Pop-up messaging interface
-- **AI Safety Bot**: Automated check-ins every 30 seconds for harm reduction
-- **Direct Communication**: Message support team about orders
+- **User Authentication**: Secure login and registration with PHP sessions
+- **Product Catalog**: Browse harm reduction products with detailed safety information
+- **Shopping Cart**: Add products to cart and manage quantities
+- **Scheduled Ordering**: Pickup/delivery only on Wednesdays and Fridays, 5pm-9pm
+- **Order Tracking**: Complete order history and status updates
+- **Messaging System**: Direct communication with support team
+- **Notifications**: In-app notification system with unread badges
+- **Admin Dashboard**: Manage products, orders, and users
+- **Responsive Design**: Mobile-friendly with Bootstrap 5
 
 ## Technology Stack
 
 ### Backend
-- Node.js + Express
-- MongoDB with Mongoose
-- Socket.IO for real-time messaging
-- JWT authentication
-- bcryptjs for password hashing
+- **PHP 7.4+**: Server-side logic and business rules
+- **MySQL 5.7+**: Relational database
+- **PHPMyAdmin**: Database management interface
 
 ### Frontend
-- React with TypeScript
-- Socket.IO Client
-- Axios for API calls
-- CSS Modules for styling
+- **HTML5**: Page structure
+- **CSS3**: Custom styling
+- **Bootstrap 5**: Responsive UI framework
+- **Minimal JavaScript**: Form validation and UI enhancements
 
-## Setup Instructions
+### Security
+- Password hashing with PHP `password_hash()`
+- Session-based authentication
+- SQL injection prevention with prepared statements
+- XSS protection with `htmlspecialchars()`
 
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB (local or cloud instance)
+## Prerequisites
 
-### Installation
+- PHP 7.4 or higher
+- MySQL 5.7 or higher
+- Apache/Nginx web server
+- PHPMyAdmin (optional but recommended)
 
-1. Clone the repository:
+## Installation
+
+### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/acesonder/happypuppy.git
 cd happypuppy
 ```
 
-2. Install backend dependencies:
+### 2. Configure Web Server
+
+**For Apache (with mod_php):**
+
+Add this to your Apache virtual host configuration:
+
+```apache
+<VirtualHost *:80>
+    ServerName localhost
+    DocumentRoot /path/to/happypuppy
+    
+    <Directory /path/to/happypuppy>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+**For PHP Built-in Server (Development Only):**
+
 ```bash
-npm install
+php -S localhost:8000
 ```
 
-3. Install frontend dependencies:
+### 3. Create MySQL Database
+
+**Option A: Using PHPMyAdmin**
+1. Open PHPMyAdmin in your browser
+2. Click "New" to create a database named `happypuppy`
+3. Import the schema: Go to Import tab and select `database/schema.sql`
+4. Import seed data: Import `database/seed.sql`
+
+**Option B: Using MySQL Command Line**
+
 ```bash
-cd client
-npm install
-cd ..
+mysql -u root -p
 ```
 
-4. Create environment file:
-```bash
-cp .env.example .env
+```sql
+CREATE DATABASE happypuppy;
+USE happypuppy;
+SOURCE database/schema.sql;
+SOURCE database/seed.sql;
 ```
 
-5. Configure your `.env` file:
-```
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/happypuppy
-JWT_SECRET=your-secret-key-here
-NODE_ENV=development
-```
+### 4. Configure Database Connection
 
-### Running the Application
+The database configuration is in `/includes/config.php`:
 
-1. Start MongoDB (if running locally):
-```bash
-mongod
+```php
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');  // Blank password for development
+define('DB_NAME', 'happypuppy');
 ```
 
-2. Start the backend server:
-```bash
-npm run server
-```
+**Note**: These are the default development credentials. Change them for production!
 
-3. In a new terminal, start the frontend:
-```bash
-npm run client
-```
+### 5. Access the Application
 
-4. Access the application at `http://localhost:3000`
+Open your browser and navigate to:
+- **Local development**: `http://localhost:8000`
+- **Apache**: `http://localhost`
 
-## Features Overview
+## Default Login Credentials
 
-### Authentication System
-- User registration with email, password, name, phone, and address
-- Secure JWT-based authentication
-- Role-based access (user/admin)
+**Admin Account:**
+- Email: `admin@happypuppy.com`
+- Password: `admin123`
 
-### Ordering System
-- **Grid View**: Card-based product display with images
-- **List View**: Compact list view for easier browsing
-- Add products to cart with quantity selection
-- Schedule pickup or delivery
-- **Restricted scheduling**: Only Wednesday and Friday, 5pm-9pm
-- Order confirmation and tracking
-
-### Inventory Management
-- Real-time inventory updates
-- Product categories and safety information
-- Stock availability tracking
-- Admin controls for product management
-
-### Messaging System
-- Real-time instant messaging using Socket.IO
-- Message bubble modal interface
-- Unread message indicators
-- Conversation history
-- Direct communication with support team
-
-### Notification System
-- In-app notification bell with badge counter
-- Notification types: orders, messages, system, check-ins
-- Mark as read functionality
-- Notification dropdown with recent alerts
-
-### AI Safety Check-in Bot
-- Automated check-ins every 30 seconds when activated
-- Three response options: OK, Need Help, Emergency
-- Optional text responses
-- Alert system for missed check-ins
-- Safety-focused harm reduction approach
-
-## API Endpoints
-
-### Authentication
-- POST `/api/auth/register` - Register new user
-- POST `/api/auth/login` - User login
-- GET `/api/auth/me` - Get current user
-
-### Products
-- GET `/api/products` - Get all products
-- GET `/api/products/:id` - Get product by ID
-- POST `/api/products` - Create product (admin)
-- PUT `/api/products/:id` - Update product (admin)
-- DELETE `/api/products/:id` - Delete product (admin)
-
-### Orders
-- POST `/api/orders` - Create new order
-- GET `/api/orders/my-orders` - Get user's orders
-- GET `/api/orders` - Get all orders (admin)
-- GET `/api/orders/:id` - Get order by ID
-- PATCH `/api/orders/:id/status` - Update order status (admin)
-
-### Messages
-- GET `/api/messages/:userId` - Get conversation
-- POST `/api/messages` - Send message
-- PATCH `/api/messages/read/:userId` - Mark messages as read
-- GET `/api/messages/unread/count` - Get unread count
-
-### Notifications
-- GET `/api/notifications` - Get user notifications
-- PATCH `/api/notifications/:id/read` - Mark as read
-- PATCH `/api/notifications/read-all` - Mark all as read
-- GET `/api/notifications/unread/count` - Get unread count
-
-## Socket.IO Events
-
-### Client to Server
-- `authenticate` - Authenticate user connection
-- `send_message` - Send a message
-- `start_checkin_session` - Start AI check-in session
-- `stop_checkin_session` - Stop AI check-in session
-- `checkin_response` - Respond to check-in
-
-### Server to Client
-- `receive_message` - Receive new message
-- `message_sent` - Message send confirmation
-- `new_notification` - New notification
-- `checkin_request` - AI check-in request
-- `checkin_alert` - Alert for missed check-ins
+**Test User:**
+- Email: `user@test.com`
+- Password: `user123`
 
 ## Project Structure
 
 ```
 happypuppy/
-├── server/
-│   ├── models/          # MongoDB models
-│   ├── routes/          # Express routes
-│   ├── middleware/      # Auth middleware
-│   ├── utils/           # Utility functions
-│   └── index.js         # Server entry point
-├── client/
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── contexts/    # React contexts
-│   │   ├── services/    # API and Socket services
-│   │   ├── styles/      # CSS files
-│   │   ├── types/       # TypeScript types
-│   │   └── App.tsx      # Main app component
-│   └── public/          # Static files
-├── .env.example         # Environment variables template
-└── package.json         # Dependencies
+├── admin/                  # Admin pages
+│   ├── orders.php         # Manage all orders
+│   ├── products.php       # Manage products
+│   └── product-edit.php   # Add/edit products
+├── database/              # Database files
+│   ├── schema.sql         # Database structure
+│   └── seed.sql           # Sample data
+├── includes/              # Shared PHP files
+│   ├── config.php         # Configuration & helpers
+│   ├── header.php         # Page header
+│   └── footer.php         # Page footer
+├── models/                # Data models
+│   ├── User.php
+│   ├── Product.php
+│   ├── Order.php
+│   ├── Message.php
+│   └── Notification.php
+├── public/                # Static assets
+│   ├── css/
+│   │   └── style.css      # Custom styles
+│   └── js/
+│       └── main.js        # JavaScript utilities
+├── index.php              # Home page
+├── login.php              # Login page
+├── register.php           # Registration page
+├── products.php           # Product catalog
+├── cart.php               # Shopping cart
+├── checkout.php           # Order checkout
+├── orders.php             # User's orders
+├── order-details.php      # Order details
+├── messages.php           # Messaging system
+├── notifications.php      # Notifications
+├── profile.php            # User profile
+└── logout.php             # Logout handler
 ```
 
-## Security Features
+## Key Features
 
-- JWT token authentication
-- Password hashing with bcryptjs
-- Protected API routes
-- Role-based access control
-- Input validation
-- CORS configuration
+### 1. Product Management
+- Browse harm reduction supplies
+- Detailed product information
+- Safety guidelines for each product
+- Real-time inventory tracking
+- Category-based organization
+
+### 2. Order System
+- Shopping cart functionality
+- Delivery type selection (Pickup/Delivery)
+- Date/time scheduling (Wednesday & Friday, 5-9 PM)
+- Order status tracking
+- Order history
+
+### 3. Messaging
+- Direct messaging with support team
+- Conversation history
+- Message notifications
+- Order-related discussions
+
+### 4. Admin Features
+- Product CRUD operations
+- Order status management
+- User management
+- Inventory control
+
+### 5. Notifications
+- Order confirmations
+- Status updates
+- New messages
+- System alerts
+
+## Database Schema
+
+### Tables
+- **users**: User accounts and profiles
+- **products**: Product catalog
+- **orders**: Order records
+- **order_items**: Order line items
+- **messages**: User-to-user messages
+- **notifications**: System notifications
+- **check_ins**: Safety check-in records
+
+See `database/schema.sql` for complete structure.
+
+## Security Best Practices
+
+### For Production Deployment:
+
+1. **Change database credentials** in `includes/config.php`
+2. **Use strong passwords** for MySQL root user
+3. **Enable HTTPS** with SSL certificate
+4. **Set proper file permissions**:
+   ```bash
+   chmod 755 /path/to/happypuppy
+   chmod 644 *.php
+   ```
+5. **Disable error display** in production:
+   ```php
+   ini_set('display_errors', 0);
+   error_reporting(0);
+   ```
+6. **Keep PHP and MySQL updated**
+7. **Regular database backups**
 
 ## Harm Reduction Focus
 
-This system is designed with harm reduction principles:
-- Non-judgmental approach
-- Safety-focused check-ins
-- Direct communication channels
-- Emergency response options
-- Educational safety information
-- Support team accessibility
+This system follows harm reduction principles:
+- **Non-judgmental**: Respectful, stigma-free service
+- **Safety-focused**: Comprehensive safety information
+- **Accessible**: Easy-to-use interface
+- **Confidential**: Secure and private
+- **Educational**: Safety guidelines with every product
+
+## Support
+
+For questions or support, log in and use the messaging system to contact the support team.
 
 ## License
 
 ISC
-
-## Support
-
-For support or questions, please contact the support team through the in-app messaging system.

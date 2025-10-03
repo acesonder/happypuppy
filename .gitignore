@@ -1,9 +1,43 @@
+# PHP
+*.log
+*.cache
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Configuration
+/includes/config.local.php
+
+# Temporary files
+/tmp/
+*.tmp
+
+# Uploads
+/uploads/
+/public/uploads/
+
+# Backup files
+*.bak
+*.backup
+
+# Database dumps
+*.sql.gz
+*.sql.backup
+
+# Legacy Node.js files (old architecture)
 node_modules/
 .env
 dist/
 build/
-*.log
-.DS_Store
 coverage/
 client/build/
 client/node_modules/
