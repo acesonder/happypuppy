@@ -1,0 +1,121 @@
+/* HappyPuppy Custom Styles */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+.badge {
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.message-bubble {
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    max-width: 70%;
+}
+
+.message-sent {
+    background-color: #0d6efd;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.message-received {
+    background-color: #e9ecef;
+    color: #212529;
+    margin-right: auto;
+}
+
+.notification-item {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+    background-color: #e7f3ff;
+}
+
+.product-card {
+    height: 100%;
+}
+
+.status-badge {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+}
+
+.table {
+    background-color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .message-bubble {
+        max-width: 85%;
+    }
+}
